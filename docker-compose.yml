@@ -1,8 +1,9 @@
-version: '3.9'
+version: '3.8'
+
 services:
-  moneybot:
+  financebot:
     build: .
-    container_name: moneybot
     env_file:
       - .env
-    restart: always
+    container_name: financebot
+    restart: unless-stopped
