@@ -19,18 +19,26 @@ public class MoneyBot extends TelegramLongPollingBot {
     private final String exchangeApiKey;
 
     public MoneyBot() {
-        Dotenv dotenv = Dotenv.load(); // загружаем .env
-        this.botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
-        this.exchangeApiKey = dotenv.get("EXCHANGE_API_KEY");
+        String token = System.getenv("TELEGRAM_BOT_TOKEN");
+        String apiKey = System.getenv("EXCHANGE_API_KEY");
+
+        if (token == null || token.isBlank()) {
+            // fallback на .env для локалки
+            Dotenv dotenv = Dotenv.load();
+            token = dotenv.get("TELEGRAM_BOT_TOKEN");
+            apiKey = dotenv.get("EXCHANGE_API_KEY");
+        }
+
+        this.botToken = token;
+        this.exchangeApiKey = apiKey;
 
         if (botToken == null || botToken.isBlank()) {
-            throw new IllegalStateException("TELEGRAM_BOT_TOKEN не задан в .env!");
+            throw new IllegalStateException("TELEGRAM_BOT_TOKEN не задан!");
         }
         if (exchangeApiKey == null || exchangeApiKey.isBlank()) {
-            System.out.println("Warning: EXCHANGE_API_KEY не задан в .env. Используется пустой ключ.");
+            System.out.println("Warning: EXCHANGE_API_KEY не задан. Используется пустой ключ.");
         }
     }
-
     @Override
     public String getBotUsername() {
         return "Money_nineteenmgbot";

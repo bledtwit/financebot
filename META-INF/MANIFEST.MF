@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.8.7
+Built-By: nineteenmg
+Build-Jdk: 17.0.16
+Main-Class: com.nineteenmg.bot.Main
+

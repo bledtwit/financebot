@@ -9,6 +9,4 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/financebot-1.0-SNAPSHOT.jar app.jar
-# Копируем .env в контейнер
-COPY .env ./
 ENTRYPOINT ["java", "-jar", "app.jar"]
